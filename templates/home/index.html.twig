@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home | Simple Car Rental{% endblock %}
+
+{% block body %}
+  <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-white">
+    <div class="max-w-5xl w-full px-6 py-16 text-center">
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-800 dark:text-white">
+        Simple Car Rental
+      </h1>
+      <p class="mt-4 text-slate-600 dark:text-slate-300 text-lg">
+        Rent reliable cars quickly and securely. Register an account or log in to get started.
+      </p>
+
+      <div class="mt-8 flex gap-4 justify-center">
+        {% if app.user %}
+          <a href="{{ path('app_logout') }}" class="inline-flex items-center rounded-lg bg-slate-900 text-white px-5 py-3 font-medium shadow hover:bg-slate-800 transition">
+            Logout
+          </a>
+        {% else %}
+          <a href="{{ path('app_register') }}" class="inline-flex items-center rounded-lg bg-slate-900 text-white px-5 py-3 font-medium shadow hover:bg-slate-800 transition">
+            Get Started
+          </a>
+          <a href="{{ path('app_login') }}" class="inline-flex items-center rounded-lg border border-slate-300 text-slate-800 px-5 py-3 font-medium hover:bg-slate-50 transition dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700">
+            Sign In
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

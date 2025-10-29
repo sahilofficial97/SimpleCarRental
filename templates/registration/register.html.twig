@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-white">
+        <div class="w-full max-w-md px-6 py-12">
+            <div class="bg-white rounded-lg border border-slate-200 shadow">
+                <div class="px-6 py-6">
+                    <h1 class="text-2xl font-extrabold tracking-tight text-slate-800">Create your account</h1>
+
+                    {# Flashes #}
+                    <div class="mt-4 space-y-2">
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="rounded-md border px-4 py-3 text-sm
+                                                        {{ label == 'success' ? 'border-green-300 text-green-800 bg-white' : '' }}
+                                                        {{ label == 'error' ? 'border-red-300 text-red-800 bg-white' : '' }}
+                                                        {{ label not in ['success','error'] ? 'border-slate-300 text-slate-700 bg-white' : '' }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+
+                    {{ form_start(registrationForm, { attr: { class: 'mt-6' } }) }}
+                        {{ form_row(registrationForm.email) }}
+                        {{ form_row(registrationForm.plainPassword.first) }}
+                        {{ form_row(registrationForm.plainPassword.second) }}
+
+                        <button type="submit"
+                                        class="mt-2 inline-flex w-full items-center justify-center rounded-md bg-slate-900 px-5 py-3 text-white shadow hover:bg-slate-800 transition">
+                            Register
+                        </button>
+                    {{ form_end(registrationForm) }}
+
+                    <p class="mt-6 text-center text-sm text-slate-600">
+                        Already have an account?
+                        <a href="{{ path('app_login') }}" class="font-medium text-slate-800 hover:underline">Login</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
