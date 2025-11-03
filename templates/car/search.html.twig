@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Find a Car | Simple Car Rental{% endblock %}
+
+{% block body %}
+  <section class="min-h-screen bg-gradient-to-br from-slate-50 to-white py-12">
+    <div class="mx-auto max-w-7xl px-6">
+      <h1 class="text-3xl font-extrabold tracking-tight text-slate-800">Find your ride</h1>
+      <p class="mt-2 text-slate-600">Search available cars by number of passengers and your trip dates.</p>
+
+      {% if errors is not empty %}
+        <div class="mt-4 rounded-md border border-red-300 bg-white px-4 py-3 text-sm text-red-800">
+          {{ errors|join(' ') }}
+        </div>
+      {% endif %}
+
+      <!-- Search Bar -->
+      <form method="get" action="{{ path('app_cars_search') }}" class="mt-6">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <label for="passengers" class="block text-sm font-medium text-slate-700 mb-1">Passengers</label>
+            <input type="number" min="1" step="1" id="passengers" name="passengers" value="{{ filters.passengers }}"
+                   class="block w-full rounded-md border border-slate-300 px-4 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500"
+                   placeholder="e.g., 5" />
+          </div>
+          <div>
+            <label for="start" class="block text-sm font-medium text-slate-700 mb-1">Start date</label>
+            <input type="date" id="start" name="start" value="{{ filters.start }}"
+                   class="block w-full rounded-md border border-slate-300 px-4 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500" />
+          </div>
+          <div>
+            <label for="end" class="block text-sm font-medium text-slate-700 mb-1">End date</label>
+            <input type="date" id="end" name="end" value="{{ filters.end }}"
+                   class="block w-full rounded-md border border-slate-300 px-4 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500" />
+          </div>
+          <div class="flex items-end">
+            <button type="submit" class="inline-flex w-full items-center justify-center rounded-md bg-slate-900 px-5 py-3 text-white shadow hover:bg-slate-800 transition">
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Results -->
+      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {% for car in cars %}
+          <div class="rounded-lg border border-slate-200 bg-white shadow">
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-slate-800">{{ car.brandName }}</h3>
+                <span class="text-sm text-slate-600 capitalize">{{ car.type }}</span>
+              </div>
+              <p class="mt-2 text-sm text-slate-600">
+                <span class="font-medium">Seats:</span> {{ car.seatAmount }}
+                <span class="ml-4 font-medium">Color:</span> {{ car.color }}
+              </p>
+              <p class="mt-4 text-xl font-extrabold text-slate-800">
+                € {{ car.pricePerDay }}
+                <span class="text-sm font-medium text-slate-600">/ day</span>
+              </p>
+              <div class="mt-6 flex gap-3">
+                <a href="#" class="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50 transition">Details</a>
+                <a href="#" class="inline-flex items-center rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white shadow hover:bg-slate-800 transition">Rent</a>
+              </div>
+            </div>
+          </div>
+        {% else %}
+          <div class="col-span-full">
+            <div class="rounded-md border border-slate-200 bg-white px-4 py-6 text-center text-slate-600">
+              No cars match your filters. Try adjusting the passengers or dates.
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <p class="mt-8 text-sm text-slate-500">Note: date availability is not enforced yet. Add bookings to prevent conflicts.</p>
+    </div>
+  </section>
+{% endblock %}

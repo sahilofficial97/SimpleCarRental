@@ -17,11 +17,12 @@
             <nav class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
                 <a href="{{ path('app_home') }}" class="font-extrabold tracking-tight text-xl">Simple Car Rental</a>
                 <div class="flex items-center gap-3">
-                    <a href="{{ path('app_home') }}" class="text-slate-700 hover:text-slate-900">Home</a>
                     {% if app.user %}
+                        <a href="{{ path('app_cars_search') }}" class="text-slate-700 hover:text-slate-900">Cars</a>
                         <span class="hidden sm:inline text-slate-500">{{ app.user.userIdentifier }}</span>
                         <a href="{{ path('app_logout') }}" class="inline-flex items-center rounded-md bg-slate-900 text-white px-4 py-2 text-sm font-medium shadow hover:bg-slate-800 transition">Logout</a>
                     {% else %}
+                        <a href="{{ path('app_home') }}" class="text-slate-700 hover:text-slate-900">Home</a>
                         <a href="{{ path('app_login') }}" class="text-slate-700 hover:text-slate-900">Login</a>
                         <a href="{{ path('app_register') }}" class="inline-flex items-center rounded-md bg-slate-900 text-white px-4 py-2 text-sm font-medium shadow hover:bg-slate-800 transition">Register</a>
                     {% endif %}

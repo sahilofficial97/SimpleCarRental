@@ -21,13 +21,17 @@ security:
                 enable_csrf: true
                 username_parameter: _username
                 password_parameter: _password
+                default_target_path: "/cars"
+                always_use_default_target_path: true
             logout:
                 path: app_logout
                 # where to redirect after logout
                 target: app_login
 
     access_control:
-        # Example of protecting an area:
+        # Require login for car search
+        - { path: ^/cars, roles: ROLE_USER }
+        # Example:
         # - { path: ^/account, roles: ROLE_USER }
 
 when@test:
