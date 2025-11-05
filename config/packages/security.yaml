@@ -31,6 +31,8 @@ security:
     access_control:
         # Require login for car search
         - { path: ^/cars, roles: ROLE_USER }
+        # Require login for reservations
+        - { path: ^/reservations, roles: ROLE_USER }
         # Example:
         # - { path: ^/account, roles: ROLE_USER }
 

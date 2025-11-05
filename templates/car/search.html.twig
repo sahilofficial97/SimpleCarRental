@@ -41,6 +41,20 @@
         </div>
       </form>
 
+      {# Flashes #}
+      <div class="mt-6 space-y-2">
+        {% for label, messages in app.flashes %}
+          {% for message in messages %}
+            <div class="rounded-md border px-4 py-3 text-sm
+                        {{ label == 'success' ? 'border-green-300 text-green-800 bg-white' : '' }}
+                        {{ label == 'error' ? 'border-red-300 text-red-800 bg-white' : '' }}
+                        {{ label not in ['success','error'] ? 'border-slate-300 text-slate-700 bg-white' : '' }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+
       <!-- Results -->
       <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {% for car in cars %}
@@ -59,8 +73,17 @@
                 <span class="text-sm font-medium text-slate-600">/ day</span>
               </p>
               <div class="mt-6 flex gap-3">
-                <a href="#" class="inline-flex items-center rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50 transition">Details</a>
-                <a href="#" class="inline-flex items-center rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white shadow hover:bg-slate-800 transition">Rent</a>
+                <form method="post" action="{{ path('app_reserve_car', { id: car.id }) }}">
+                  <input type="hidden" name="start" value="{{ filters.start }}" />
+                  <input type="hidden" name="end" value="{{ filters.end }}" />
+                  <input type="hidden" name="_token" value="{{ csrf_token('reserve_car_' ~ car.id) }}" />
+                  {% set canReserve = filters.start and filters.end %}
+                  <button type="submit"
+                          class="inline-flex items-center rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white shadow hover:bg-slate-800 transition disabled:opacity-60 disabled:cursor-not-allowed"
+                          {% if not canReserve %}disabled title="Select dates first"{% endif %}>
+                    Rent
+                  </button>
+                </form>
               </div>
             </div>
           </div>
