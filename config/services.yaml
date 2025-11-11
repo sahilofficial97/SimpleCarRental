@@ -15,6 +15,20 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # Payment: Sentoo client configuration
+    App\Service\Payment\SentooClient:
+        arguments:
+            $httpClient: '@http_client'
+            $baseUrl: '%env(string:SENTOO_BASE_URL)%'
+            $merchantId: '%env(string:SENTOO_MERCHANT)%'
+            $secret: '%env(string:SENTOO_SECRET)%'
+            $currency: '%env(string:SENTOO_CURRENCY)%'
+            $defaultReturnUrl: '%env(string:SENTOO_RETURN_URL)%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

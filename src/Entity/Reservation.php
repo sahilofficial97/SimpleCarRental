@@ -46,6 +46,12 @@ class Reservation
     #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $isPaid = false;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $paymentReference = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -109,6 +115,28 @@ class Reservation
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    public function isPaid(): bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(bool $paid): self
+    {
+        $this->isPaid = $paid;
+        return $this;
+    }
+
+    public function getPaymentReference(): ?string
+    {
+        return $this->paymentReference;
+    }
+
+    public function setPaymentReference(?string $reference): self
+    {
+        $this->paymentReference = $reference;
+        return $this;
     }
 
     #[ORM\PrePersist]

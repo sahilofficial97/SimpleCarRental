@@ -63,7 +63,6 @@ class ReservationController extends AbstractController
             return $this->redirectToRoute('app_cars_search', $request->query->all());
         }
 
-        // Load the car reference
         /** @var Car|null $car */
         $car = $em->getRepository(Car::class)->find($id);
         if (!$car) {
