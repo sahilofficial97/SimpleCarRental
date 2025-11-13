@@ -17,9 +17,7 @@ class CarRepository extends ServiceEntityRepository
     }
 
     /**
-     * Search cars by optional minimum seats and availability for a given date range.
-     * If both $start and $end are provided, only cars without overlapping reservations are returned.
-     *
+     * 
      * @return Car[]
      */
     public function search(?int $minSeats = null, ?\DateTimeImmutable $start = null, ?\DateTimeImmutable $end = null): array
@@ -40,7 +38,6 @@ class CarRepository extends ServiceEntityRepository
 
         // When both dates are provided, exclude cars that have overlapping reservations.
         if ($start !== null && $end !== null) {
-            // Left join reservations that overlap the requested window; then require none exist.
             $qb->leftJoin('App\\Entity\\Reservation', 'r', 'WITH', 'r.car = c AND r.startDate < :end AND r.endDate > :start')
                ->andWhere('r.id IS NULL')
                ->setParameter('start', $start)

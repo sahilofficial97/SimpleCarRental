@@ -14,10 +14,6 @@ class SentooClient
     ) {
     }
 
-    /**
-     * Create a payment and return an array with url and raw response.
-     * @return array{url: string|null, raw: array<string,mixed>|string}
-     */
     public function createPayment(
         int $amountMinorUnits,
         string $description,

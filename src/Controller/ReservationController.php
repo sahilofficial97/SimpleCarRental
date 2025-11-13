@@ -63,7 +63,7 @@ class ReservationController extends AbstractController
             return $this->redirectToRoute('app_cars_search', $request->query->all());
         }
 
-        /** @var Car|null $car */
+        
         $car = $em->getRepository(Car::class)->find($id);
         if (!$car) {
             $this->addFlash('error', 'Car not found.');

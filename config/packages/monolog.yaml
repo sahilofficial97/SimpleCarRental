@@ -1,6 +1,13 @@
 monolog:
     channels:
         - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
+        - reservation
+    handlers:
+        reservation_create:
+            type: stream
+            path: "%kernel.logs_dir%/reservation_Create.log"
+            level: info
+            channels: ["reservation"]
 
 when@dev:
     monolog:
