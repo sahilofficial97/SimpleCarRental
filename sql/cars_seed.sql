@@ -1,5 +1,4 @@
 -- Seed data for `car` table
--- Ensure you are connected to the correct database before running this file.
 -- Columns: id (auto), brand_name, seat_amount, color, type
 
 INSERT INTO car (brand_name, seat_amount, color, type, price_per_day) VALUES
@@ -18,7 +17,3 @@ INSERT INTO car (brand_name, seat_amount, color, type, price_per_day) VALUES
   ('Ford Mustang Convertible', 4, 'black', 'convertible', 125.00),
   ('Mercedes C-Class', 5, 'white', 'sedan', 98.00),
   ('Hyundai Sonata', 5, 'blue', 'sedan', 58.00);
-
--- Optional sanity checks
--- SELECT COUNT(*) AS total_cars FROM car;
--- SELECT type, COUNT(*) AS count_by_type FROM car GROUP BY type;
